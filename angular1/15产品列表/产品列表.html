@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../bootstrap/bootstrap-3.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div ng-app="product">
+    <div class="container" ng-controller="productController">
+        <form style="padding: 20px 0 0 0;" class="navbar-search pull-left" action="">
+            <span>随便搜:<input type="text" class="search-query span2" ng-model="search" placeholder="Search"></span>
+            <!--搜索条件不限-->
+            <span>ID搜:<input type="text" class="search-query span2" ng-model="search.id" placeholder="Search"></span>
+            <!--自定义搜索条件(现在根据id搜索)-->
+        </form>
+        <table class="table">
+            <thead>
+                <th ng-class="{dropup:order == ''}" ng-click="changeOrderType('id')" style="cursor: pointer;">
+                    产品编号
+                    <b class="caret"></b>
+                </th>
+                <th ng-class="{dropup:order == ''}" ng-click="changeOrderType('name')" style="cursor: pointer;">
+                    产品名称
+                    <b class="caret"></b>
+                </th>
+                <th ng-class="{dropup:order == ''}" ng-click="changeOrderType('price')" style="cursor: pointer;">
+                    产品价格
+                    <b class="caret"></b>
+                </th>
+            </thead>
+            <tbody>
+                <!--<tr ng-repeat="item in data | filter:{id:search}">-->
+                <tr ng-repeat="item in data | filter:search | orderBy:order + orderType">
+                    <td contenteditable>
+                        {{item["id"]}}
+                    </td>
+                    <td contenteditable>
+                        {{item["name"]}}
+                    </td>
+                    <td contenteditable>
+                        {{item["price"] | currency:"RMB "}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript" src="../js/angular.min.js"></script>
+<script type="text/javascript" src="app/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-app="myApp">
+    <script type="text/ng-template" id="customTags2">
+        <!--angularJs模板格式text-ng-template-->
+        <div ng-controller="firstController">
+            hello {{name}}
+        </div>
+    </script>
+    <div ng-controller="firstController">
+        <custom-tags></custom-tags>
+        <custom-tags2 ng-click="fuck()"></custom-tags2>
+    </div>
+</div>
+<script type="text/javascript" src="../js/angular.min.js"></script>
+<script type="text/javascript" src="app/index.js"></script>
+</body>
+</html>

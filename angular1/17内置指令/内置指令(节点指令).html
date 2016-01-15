@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .red{
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<!--
+    angular内置指令：
+    节点指令
+-->
+<div ng-app="myApp">
+    <div ng-controller="firstController">
+        <p ng-style="{'color':'red','margin':'50px'}">{{1 + 1}}</p>
+        <p ng-style="styles">{{1 + 1}}</p>
+        <button type="button" ng-click="changeStatus($event)">切换为{{!status}}</button>
+        <p ng-class="{red : !status}">{{'测试ng-class'}}</p>
+        <img ng-src="{{src}}">
+        <img ng-href="{{src}}">
+        <div ng-if="!status">
+            测试'ng-if'
+        </div>
+    </div>
+    <div ng-controller="secondController">
+        <img src="{{imgData.src}}" width="{{imgData.width}}" height="{{imgData.height}}">
+    </div>
+    <ul>
+        <li ng-repeat="item in [1,2,3,4,5,6,7,8,9]" ng-class-even="'even'" ng-class-odd="'odd'"></li>
+    </ul>
+    <div>
+        <ul ng-switch on="{{!status}}">
+            <li ng-switch-when="true">
+                真
+            </li>
+            <li ng-switch-when="false">
+                假
+            </li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript" src="../js/angular.min.js"></script>
+<script type="text/javascript" src="app/index.js"></script>
+</body>
+</html>

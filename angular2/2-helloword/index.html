@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p>hello world</p>
+    <pre class="logger"></pre>
+    <script type="text/javascript" src="../js/system.js"></script>
+    <script type="text/javascript" src="../js/angular2.dev.js"></script>
+    <script type="text/javascript" src="../js/traceur.js"></script>
+    <script type="text/javascript" src="../js/es6-module-loader@0.16.6.js"></script>
+    <script type="module">
+        export class Logger {
+            constructor() {
+                this.el = document.querySelector("pre.logger");
+                this.lines = [];
+            }
+
+            log(str) {
+                this.lines.push(str);
+                this.el.textContent = this.lines.join("\n");
+            }
+        }
+        var _ = new Logger();
+        _.log("哎呦，不错哦！");
+        _.log("真的是用ES6写的噢！");
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-app="myApp">
+    <div ng-controller="firstController">
+        <!--
+            1、将div转换为DOM结构
+            2、默认优先级(priority)都为0，哪个先定义哪个先使用
+        -->
+        <div ng-repeat="user in users" custom-tags custom-tags2></div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/angular.min.js"></script>
+<script type="text/javascript" src="app/index.js"></script>
+</body>
+</html>

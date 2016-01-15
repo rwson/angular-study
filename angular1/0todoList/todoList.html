@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul li{
+            list-style: none;
+        }
+        .all-app{
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="all-app" ng-app="todoApp">
+        <div ng-controller="todoController">
+            <ul>
+                <li ng-repeat="item in todoData">
+                    <span style="width: 100px;display: inline-block;">{{item["text"]}}</span>
+                    <input type="checkbox" ng-model="item['done']" ng-click="checkDone(item['id'])">
+                    <a href="javascript:;" ng-click="removeTodo(item['id'])">删除</a>
+                </li>
+                <!--循环读取todoData里面的数据-->
+            </ul>
+            <form>
+                <input type="text" ng-model="todoText" placeholder="text in new todo here!">
+                <br>
+                <label>done:<input type="checkbox" ng-model="todoChecked"></label>
+                <br>
+                <input value="add" type="submit" ng-click="addTodo()">
+                <!--点击后触发添加todo事件-->
+            </form>
+            <!--<a href="javascript:;" ng-show="todoData.length" ng-click="removeMutiTodo()">删除选中的</a>-->
+            <a href="javascript:;" ng-hide="!todoData.length" ng-click="removeAllTodo()">删除所有的</a>
+            <!--通过绑定"ng-show"和"ng-hide"内的条件来指定是否显示或者隐藏-->
+        </div>
+    </div>
+    <script src="../js/angular.min.js"></script>
+    <script src="app/todoList.js"></script>
+</body>
+</html>

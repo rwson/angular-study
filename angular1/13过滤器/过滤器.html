@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-app="myApp">
+    <div ng-controller="firstController">
+        <!--uppercase，lowercase大小转换-->
+        <!--aaaaaaaaaaa-->
+        <p>
+            大写转小写:{{"AAAAAAAAAAA" | lowercase}}
+        </p>
+        <!--AAAAAAAAAA-->
+        <p>
+            小写转大写:{{"aaaaaaaaaa" | uppercase}}
+        </p>
+        <!--数字类型-->
+        <!--123,456,789-->
+        <p>
+            数字类型(默认):{{123456789 | number}}
+        </p>
+        <!--12,345.679-->
+        <p>
+            数字类型(保留3位小数):{{12345.6789 | number:3}}
+        </p>
+        <!--货币类型-->
+        <!--$999,999.00-->
+        <p>
+            货币(默认单位"$"):{{999999 | currency}}
+        </p>
+        <!--RMB999,999.00-->
+        <p>
+            货币(指定单位"RMB"):{{999999 | currency:"RMB"}}
+        </p>
+        <!--日期类型-->
+        <!--2014-12-11T01:26:06.776Z-->
+        <p>
+            default:{{ today }}
+        </p>
+        <p>
+            medium: {{ today | date:"medium"}}
+        </p>
+        <p>
+            short:{{ today | date:"short"}}
+        </p>
+        <p>
+            fullDate:{{ today | date:"fullDate"}}
+        </p>
+        <p>
+            longDate:{{ today | date:"longDate"}}
+        </p>
+        <p>
+            mediumDate:{{ today | date:"mediumDate"}}
+        </p>
+        <p>
+
+            shortDate:{{ today | date:"shortDate"}}
+        </p>
+        <p>
+            mediumTime:{{ today | date:"mediumTime"}}
+        </p>
+        <p>
+            shortTime:{{ today | date:"shortTime"}}
+        </p>
+        <p>
+            year:
+            {{today | date : "y"}}
+            {{today | date : "yy"}}
+            {{today | date : "yyyy"}}
+        </p>
+        <p>
+            month:
+            {{today | date : "M"}}
+            {{today | date : "MM"}}
+            {{today | date : "MMM"}}
+            {{today | date : "MMMM"}}
+        </p>
+        <p>
+            day:
+            {{today | date : "d"}}
+            Day in month {{today | date : "dd"}}
+            Day in week {{today | date : "EEEE"}}
+            {{today | date : "EEE"}}
+        </p>
+        <p>
+            hour:
+            {{today | date : "HH"}}
+            {{today | date : "H"}}
+            {{today | date : "hh"}}
+            {{today | date : "h"}}
+        </p>
+        <p>
+            minute:
+            {{today | date : "mm"}}
+            {{today | date : "m"}}
+        </p>
+        <p>
+            second:
+            {{today | date : "ss"}}
+            {{today | date : "s"}}
+            {{today | date : ".sss"}}
+        </p>
+        <p>
+            {{today | date : "y-MM-d HH:mm:ss"}}
+        </p>
+        <!--limitTo-->
+        <!--ilove-->
+        <p>
+            从头向后截取:{{"iloveAngularJs" | limitTo:5}}
+        </p>
+        <!--etank-->
+        <p>
+            从尾向前截取:{{"iloveAngularJs" | limitTo:-5}}
+        </p>
+        <!--json格式化-->
+        <!--{ "foo": "bar", "baz": 23 }-->
+        <p>
+            {{{foo:"bar",baz:23} | json}}
+        </p>
+    </div>
+</div>
+<script type="text/javascript" src="../js/angular.min.js"></script>
+<script type="text/javascript" src="app/index.js"></script>
+</body>
+</html>

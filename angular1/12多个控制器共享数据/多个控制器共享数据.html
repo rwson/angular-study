@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!--angularJs在一个页面中不能有多个模块，也就是ng-app-->
+<div ng-app="myApp">
+    <div ng-controller="firstController">
+        <input type="text" ng-model="data.name">
+        <input type="text" ng-model="Data.message">
+        <p>first:{{data.name}}</p>
+        <p>first:{{Data.message}}</p>
+        <ul>
+            {{Service['string']}}
+            <input type="text" ng-model="Service['string']">
+        </ul>
+    </div>
+    <div ng-controller="secondController">
+        <p>second:{{data.name}}</p>
+        <p>second:{{Data.message}}</p>
+        <ul>
+            {{Service['string']}}
+            <input type="text" ng-model="Service['string']">
+        </ul>
+    </div>
+</div>
+<script type="text/javascript" src="../js/angular.min.js"></script>
+<script type="text/javascript" src="app/index.js"></script>
+</body>
+</html>

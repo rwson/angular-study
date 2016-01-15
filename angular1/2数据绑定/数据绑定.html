@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link type="text/css" href="url" rel="stylesheet">
+</head>
+<body ng-app>
+    <!--
+        数据是双向绑定的
+    -->
+    <input type="text" ng-model="name"/>
+    <!--anglarJs表达式，可以进行一些简单的运算-->
+    {{name}}
+    <div ng-bind="name">
+
+    </div>
+    <script type="text/javascript" src="../js/angular.min.js"></script>
+</body>
+</html>

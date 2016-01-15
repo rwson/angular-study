@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p>systemjs - 通用模块加载器，支持AMD、CommonJS、ES6等各种格式的JS模块加载</p>
+    <p>es6-module-loader - ES6模块加载器，systemjs会自动加载这个模块</p>
+    <p>traceur - ES6转码器，将ES6代码转换为当前浏览器支持的ES5代码。systemjs会自动加载 这个模块。</p>
+
+    <img src="jay.gif">
+    <pre class="logger"></pre>
+    <script type="text/javascript" src="../js/system.js"></script>
+    <script type="text/javascript" src="../js/angular2.dev.js"></script>
+    <script type="text/javascript" src="../js/traceur.js"></script>
+    <script type="text/javascript" src="../js/es6-module-loader@0.16.6.js"></script>
+    <script type="module">
+        export class Logger {
+            constructor() {
+                this.el = document.querySelector("pre.logger");
+                this.lines = [];
+            }
+
+            log(str) {
+                this.lines.push(str);
+                this.el.textContent = this.lines.join("\n");
+            }
+        }
+        var _ = new Logger();
+        _.log("哎呦，不错哦！");
+        _.log("真的是用ES6写的噢！");
+    </script>
+</body>
+</html>

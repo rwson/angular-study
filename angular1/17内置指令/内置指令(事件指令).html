@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!--
+    angular内置指令：
+    事件指令
+-->
+<div ng-app="myApp">
+    <div ng-controller="firstController">
+        <button type="button" ng-click="changeStatus($event)">切换为{{!status}}</button>
+        <div>{{status}}</div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/angular.min.js"></script>
+<script type="text/javascript" src="app/index.js"></script>
+</body>
+</html>
