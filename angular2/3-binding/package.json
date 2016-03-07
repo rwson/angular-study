@@ -1,5 +1,4 @@
 {
-  "name": "angular2-quickstart",
   "version": "1.0.0",
   "scripts": {
     "tsc": "tsc",

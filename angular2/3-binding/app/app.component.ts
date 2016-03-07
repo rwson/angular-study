@@ -3,7 +3,6 @@
  */
 
 import {Component} from "angular2/core";
-import {ngFor} from "angular2/common";
 
 @Component({
     "selector":"my-app",
