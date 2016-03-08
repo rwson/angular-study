@@ -8,7 +8,7 @@ import {ImageComponent} from "./image.component";
 @Component({
     selector: "my-app",
 
-    template: ` <div>This is the Root App Component, please click the image</div>
+    template: ` <div>我是父组件,点击图片吧!</div>
                 <clickable-image (clicked)="pressed($event)"></clickable-image>`,
 
     directives: [ImageComponent]

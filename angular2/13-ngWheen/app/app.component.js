@@ -1,7 +1,7 @@
 /**
  * 组件嵌套
  */
-System.register(["angular2/core", "./image.component"], function(exports_1, context_1) {
+System.register(["angular2/core"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -13,28 +13,28 @@ System.register(["angular2/core", "./image.component"], function(exports_1, cont
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, image_component_1;
+    var core_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (image_component_1_1) {
-                image_component_1 = image_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
+                    this.choice = 1;
                 }
-                AppComponent.prototype.pressed = function (event) {
-                    alert("Image has been clicked");
+                AppComponent.prototype.nextChoice = function () {
+                    this.choice++;
+                    if (this.choice > 6) {
+                        this.choice = 1;
+                    }
                 };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: "my-app",
-                        template: " <div>\u6211\u662F\u7236\u7EC4\u4EF6,\u70B9\u51FB\u56FE\u7247\u5427!</div>\n                <clickable-image (clicked)=\"pressed($event)\"></clickable-image>",
-                        directives: [image_component_1.ImageComponent]
+                        template: "<h4>\u5F53\u524D\u9009\u62E9: {{ choice }}</h4>\n                <div class=\"ui raised segment\">\n                    <ul [ngSwitch]=\"choice\">\n                        <li *ngSwitchWhen=\"1\">\u7B2C\u4E00\u9879</li>\n                        <li *ngSwitchWhen=\"2\">\u7B2C\u4E8C\u9879</li>\n                        <li *ngSwitchWhen=\"3\">\u7B2C\u4E09\u9879</li>\n                        <li *ngSwitchWhen=\"4\">\u7B2C\u56DB\u9879</li>\n                        <li *ngSwitchWhen=\"5\">\u7B2C\u4E94\u9879</li>\n                        <li *ngSwitchDefault>\u9ED8\u8BA4\u9009\u62E9</li>\n                    </ul>\n                </div>\n                <div style=\"margin-top: 20px;\">\n                    <button (click)=\"nextChoice()\">\u4E0B\u4E00\u9879</button>\n                </div>"
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

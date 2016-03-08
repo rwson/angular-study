@@ -1,7 +1,7 @@
 /**
  * 组件嵌套
  */
-System.register(["angular2/core", "./image.component"], function(exports_1, context_1) {
+System.register(["angular2/core"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -13,28 +13,25 @@ System.register(["angular2/core", "./image.component"], function(exports_1, cont
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, image_component_1;
+    var core_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (image_component_1_1) {
-                image_component_1 = image_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
+                    this.fontSize = 12;
                 }
-                AppComponent.prototype.pressed = function (event) {
-                    alert("Image has been clicked");
+                AppComponent.prototype.biggerFont = function () {
+                    this.fontSize++;
                 };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: "my-app",
-                        template: " <div>\u6211\u662F\u7236\u7EC4\u4EF6,\u70B9\u51FB\u56FE\u7247\u5427!</div>\n                <clickable-image (clicked)=\"pressed($event)\"></clickable-image>",
-                        directives: [image_component_1.ImageComponent]
+                        template: "<div>\n                    <p [style.background-color]=\"'yellow'\" [style.font-size.px]=\"fontSize\">\u5566\u5566\u5566</p>\n                    <button (click)=\"biggerFont()\">\u52A0\u5927</button>\n                </div>"
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

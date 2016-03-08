@@ -26,14 +26,16 @@ System.register(["angular2/core", "./image.component"], function(exports_1, cont
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
+                    this.a = 5;
+                    this.b = 4;
                 }
-                AppComponent.prototype.pressed = function (event) {
-                    alert("Image has been clicked");
+                AppComponent.prototype.myFunction = function () {
+                    return true;
                 };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: "my-app",
-                        template: " <div>\u6211\u662F\u7236\u7EC4\u4EF6,\u70B9\u51FB\u56FE\u7247\u5427!</div>\n                <clickable-image (clicked)=\"pressed($event)\"></clickable-image>",
+                        template: "<div *ngIf=\"false\">false</div>\n               <div *ngIf=\"true\">true</div>\n               <div *ngIf=\"a > b\">a > b</div>\n               <div *ngIf=\"myFunction()\">\u65B9\u6CD5\u8FD4\u56DE\u503C\u4E3Atrue</div>",
                         directives: [image_component_1.ImageComponent]
                     }), 
                     __metadata('design:paramtypes', [])
