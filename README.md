@@ -6,7 +6,11 @@ angularjs1.x和angularjs2的学习笔记
 
 ./angular2:angular2的学习笔记
 
-其中,运行angular2下的文件时,应该首先在命令行切换到该目录,再运行
+其中,运行angular2下的文件时,应该首先在命令行切换到该目录,先安装[TypeScript](http://www.typescriptlang.org/),即运行
+
+    npm install -g typescript
+
+等待TypeScript安装完成,再执行
 
     npm install
     
