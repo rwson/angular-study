@@ -6,78 +6,32 @@ import {Component} from 'angular2/core';
 @Component({
     selector: 'my-app',
     template: `<div class="datetimepicker" style="left: 512px; z-index: 1010;">
-    <div class="datetimepicker-days" style="display: block;">
+    <div class="datetimepicker-days" [style.display]="curState == 'date' ? 'block' : 'none'">
         <table class=" table-condensed">
             <thead>
-            <tr>
-                <th class="prev" style="visibility: visible;"><i class="glyphicon icon-arrow-left"></i></th>
-                <th colspan="5" class="switch">{{year}} - {{month}}</th>
-                <th class="next" style="visibility: visible;"><i class="glyphicon icon-arrow-right"></i></th>
-            </tr>
-            <tr>
-                <th class="dow">Mo</th>
-                <th class="dow">Tu</th>
-                <th class="dow">We</th>
-                <th class="dow">Th</th>
-                <th class="dow">Fr</th>
-                <th class="dow">Sa</th>
-                <th class="dow">Su</th>
-            </tr>
+                <tr>
+                    <th class="prev" style="visibility: visible;" (click)="last('month')"><i class="glyphicon icon-arrow-left"></i></th>
+                    <th colspan="5" class="switch" (click)="curState='month'">{{year}} - {{monthName}}</th>
+                    <th class="next" style="visibility: visible;" (click)="next('month')"><i class="glyphicon icon-arrow-right"></i></th>
+                </tr>
+                <tr>
+                    <th class="dow">Su</th>
+                    <th class="dow">Mo</th>
+                    <th class="dow">Tu</th>
+                    <th class="dow">We</th>
+                    <th class="dow">Th</th>
+                    <th class="dow">Fr</th>
+                    <th class="dow">Sa</th>
+                </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="day old">27</td>
-                    <td class="day old">28</td>
-                    <td class="day old">29</td>
-                    <td class="day old">30</td>
-                    <td class="day old">31</td>
-                    <td class="day">1</td>
-                    <td class="day">2</td>
-                </tr>
-                <tr>
-                    <td class="day">3</td>
-                    <td class="day">4</td>
-                    <td class="day">5</td>
-                    <td class="day">6</td>
-                    <td class="day">7</td>
-                    <td class="day">8</td>
-                    <td class="day">9</td>
-                </tr>
-                <tr>
-                    <td class="day">10</td>
-                    <td class="day">11</td>
-                    <td class="day">12</td>
-                    <td class="day">13</td>
-                    <td class="day">14</td>
-                    <td class="day">15</td>
-                    <td class="day active">16</td>
-                </tr>
-                <tr>
-                    <td class="day">17</td>
-                    <td class="day">18</td>
-                    <td class="day">19</td>
-                    <td class="day">20</td>
-                    <td class="day">21</td>
-                    <td class="day">22</td>
-                    <td class="day">23</td>
-                </tr>
-                <tr>
-                    <td class="day">24</td>
-                    <td class="day">25</td>
-                    <td class="day">26</td>
-                    <td class="day">27</td>
-                    <td class="day">28</td>
-                    <td class="day">29</td>
-                    <td class="day">30</td>
-                </tr>
-                <tr>
-                    <td class="day new">1</td>
-                    <td class="day new">2</td>
-                    <td class="day new">3</td>
-                    <td class="day new">4</td>
-                    <td class="day new">5</td>
-                    <td class="day new">6</td>
-                    <td class="day new">7</td>
+                <tr *ngFor="#item of days;#i = index;">
+                    <td *ngFor="#itemIn of item"
+                        [ngClass]="{
+                            old:itemIn.old,
+                            active:itemIn.active,
+                            new:itemIn.new}"
+                        class="day">{{itemIn.num}}</td>
                 </tr>
             </tbody>
             <tfoot>
@@ -90,22 +44,22 @@ import {Component} from 'angular2/core';
             </tfoot>
         </table>
     </div>
-    <div class="datetimepicker-months" style="display: none;">
+    <div class="datetimepicker-months" [style.display]="curState == 'month' ? 'block' : 'none'">
         <table class="table-condensed">
             <thead>
                 <tr>
                     <th class="prev" style="visibility: visible;"><i class="glyphicon icon-arrow-left"></i></th>
-                    <th colspan="5" class="switch">1979</th>
+                    <th colspan="5" (click)="curState='year'" class="switch">{{monthName}}</th>
                     <th class="next" style="visibility: visible;"><i class="glyphicon icon-arrow-right"></i></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="7"><span class="month">Jan</span><span class="month">Feb</span><span
-                            class="month">Mar</span><span class="month">Apr</span><span class="month">May</span><span
-                            class="month">Jun</span><span class="month">Jul</span><span class="month">Aug</span><span
-                            class="month active">Sep</span><span class="month">Oct</span><span class="month">Nov</span><span
-                            class="month">Dec</span></td>
+                    <td colspan="7">
+                       <span class="month" *ngFor="#name of monthNames" (click)="selectMonthOrYear('month',name)">
+                            {{name}}
+                       </span>
+                    </td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -118,12 +72,12 @@ import {Component} from 'angular2/core';
             </tfoot>
         </table>
     </div>
-    <div class="datetimepicker-years" style="display: none;">
+    <div class="datetimepicker-years" [style.display]="curState == 'year' ? 'block' : 'none'">
         <table class="table-condensed">
             <thead>
                 <tr>
                     <th class="prev" style="visibility: visible;"><i class="glyphicon icon-arrow-left"></i></th>
-                    <th colspan="5" class="switch">1970-1979</th>
+                    <th colspan="5" class="switch">{{year}}</th>
                     <th class="next" style="visibility: visible;"><i class="glyphicon icon-arrow-right"></i></th>
                 </tr>
             </thead>
@@ -142,14 +96,17 @@ import {Component} from 'angular2/core';
 })
 export class AppComponent {
 
-    date;                //  日期对象
-    year;                //  年份
-    month;               //  月份
-    day;                 //  多少号
-    daysArr;             //  一年中所有月份天数的数组
-    days;                //  当前月一共多少天
-    marginLeft;          //  距离左边的距离,星期几的效果
-    curState;            //  当前选择面板,根据这个来显示层级("date":日,"month":月,"year":年)
+    date:Date;                  //  日期对象
+    year:Number;                //  年份
+    curYear:Number;             //  当前年份
+    month:Number;               //  月份
+    curMonth:Number;            //  当前月份
+    monthNames:Array<String>;   //  月份名称数组
+    monthName:String;           //  月份名称
+    day:Number;                 //  多少号
+    daysArr:Array<Number>;      //  一年中所有月份天数的数组
+    days:Array<Array<Object>>;  //  当前月一共多少天
+    curState:String;            //  当前选择面板,根据这个来显示层级("date":日,"month":月,"year":年)
 
     /**
      * 类的构造器
@@ -162,15 +119,15 @@ export class AppComponent {
     /**
      * 上月/上年
      * @param type  选择类型(month:月份,year:年份)
-     * @param num   传入的值
      */
-    last(type:String = "month", num:any):void {
+    last(type:String = "month"):void {
         let date;
         if (type == "month") {
-            this.month -= 1 < 1 ? () => {
+            this.month = this.month - 1;
+            if (this.month < 1) {
                 this.month = 12;
                 this.year -= 1;
-            } : this.month;
+            }
         } else if (type == "year") {
             this.year -= 1;
         } else {
@@ -183,15 +140,15 @@ export class AppComponent {
     /**
      * 下月/下年
      * @param type  选择类型(month:月份,year:年份)
-     * @param num   传入的值
      */
-    next(type:String = "month", num:any):void {
+    next(type:String = "month"):void {
         let date;
         if (type == "month") {
-            this.month += 1 > 12 ? () => {
+            this.month = this.month + 1;
+            if (this.month > 12) {
                 this.month = 1;
                 this.year += 1;
-            } : this.month;
+            }
         } else if (type == "year") {
             this.year += 1;
         } else {
@@ -204,34 +161,133 @@ export class AppComponent {
     /**
      * 点击月份选择
      * @param type  选择类型(month:月份,year:年份)
-     * @param num   传入的值
+     * @param arg   传入的值
      */
-    selectMonthOrYear(type:String = "month", num:any):void {
+    selectMonthOrYear(type:String = "month", arg:any):void {
+        let date;
         if (type == "month") {
-            this.month = parseInt(num);
+            this.monthNames.forEach((name, index) => {
+                if (name == arg) {
+                    this.month = index + 1;
+                }
+            });
+            this.curState = "date";
         } else if (type == "year") {
             this.year = parseInt(num);
+            this.curState = "month";
         } else {
             throw "the argument type is passed an error value which only can be 'year' or 'month'";
         }
+        date = new Date(`${this.year},${this.month},${this.day}`);
+        console.log(date);
+        this.dateGenerator(date);
     }
 
     /**
      * 生成AppComponent关于日期的相关成员属性
      */
     dateGenerator(date:Date):void {
+        let last = 0;       //  上月份
+        let next = 0;       //  下月份
+        let lLastDay = 0;   //  上月最后一天星期几
+        let firstDay = 0;   //  每月第一天对应星期几
+        let nFirstDay = 0;  //  下月第一天对应星期几
+        let lastDay = 0;    //  每月最后一天对应星期几
         this.date = date || new Date();
         this.year = this.date.getFullYear();
         this.month = this.date.getMonth() + 1;
         this.day = this.date.getDate();
         this.daysArr = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        this.monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        this.monthName = this.monthNames[this.month - 1];
         if ((this.year % 4 == 0 && this.year % 100 != 0) || (this.year % 400 == 0)) {
             this.daysArr[1] = 29;
         }
         this.days = [];
-        for (let i = 1, days = this.daysArr[this.month - 1]; i <= days; i++) {
-            this.days.push(i);
+
+        //  当前年月同时不存在
+        if (!this.curYear && !this.curMonth) {
+            this.curYear = this.year;
+            this.curMonth = this.month;
         }
+
+        last = this.daysArr[(this.month - 2 < 1) ? 11 : this.month - 2];
+        next = this.daysArr[(this.month + 1 > 12) ? 0 : this.month + 1];
+
+        let arrs = [];      //  临时变量
+        let len = 0;        //  存储第一层数组的长度
+
+        //  获取几个星期几
+        lLastDay = new Date(`${this.year},${this.month - 1},${this.daysArr[this.month - 2]}`).getDay();
+        firstDay = new Date(`${this.year},${this.month},1`).getDay();
+        nFirstDay = new Date(`${this.year},${this.month + 1},1`).getDay();
+        lastDay = new Date(`${this.year},${this.month},${this.daysArr[this.month - 1]}`).getDay();
+
+        //  当前月的第一天是星期天
+        if (firstDay == 0) {
+            for (let i = 1, days = this.daysArr[this.month - 1]; i <= days; i++) {
+                arrs.push({
+                    "old": false,
+                    "active": i == this.day && this.curYear == this.year && this.curMonth == this.month,
+                    "new": false,
+                    "num": i
+                });
+                if (arrs.length == 7 || (i == days && arrs.length <= 7)) {
+                    this.days.push(arrs);
+                    arrs = [];
+                    len += 1;
+                }
+            }
+        } else if (firstDay != 0) {
+
+            //  当前月的第一天不是星期天
+            for (let j = last - lLastDay; j <= last; j++) {
+                arrs.push({
+                    "old": true,
+                    "active": false,
+                    "new": false,
+                    "num": j
+                });
+            }
+
+            for (let i = 1, days = this.daysArr[this.month - 1]; i <= days; i++) {
+                arrs.push({
+                    "old": false,
+                    "active": i == this.day && this.curYear == this.year && this.curMonth == this.month,
+                    "new": false,
+                    "num": i
+                });
+                if (arrs.length == 7 || (i == days && arrs.length <= 7)) {
+                    this.days.push(arrs);
+                    arrs = [];
+                    len += 1;
+                }
+            }
+        }
+
+        //  月份后面的几天
+        if (this.days && this.days[len - 1].length < 7) {
+            let lastArr = this.days[len - 1];
+            for (let k = 1; k <= 7 - nFirstDay; k++) {
+                if (lastArr.length < 7) {
+                    lastArr.push({
+                        "old": false,
+                        "active": false,
+                        "new": true,
+                        "num": k
+                    });
+                }
+            }
+            this.days[len - 1] = lastArr;
+        }
+
+        console.log(this.days);
     }
 
 }
+
+//<span class="month">Jan</span><span class="month">Feb</span><span
+//class="month">Mar</span><span class="month">Apr</span><span class="month">May</span><span
+//class="month">Jun</span><span class="month">Jul</span><span class="month">Aug</span><span
+//class="month active">Sep</span><span class="month">Oct</span><span class="month">Nov</span><span
+//class="month">Dec</span>
