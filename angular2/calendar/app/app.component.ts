@@ -36,10 +36,7 @@ import {Component} from 'angular2/core';
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="7" class="today">Today</th>
-                </tr>
-                <tr>
-                    <th colspan="7" class="clear" style="display: none;">Clear</th>
+                    <th colspan="7" class="today" (click)="reset()">Today</th>
                 </tr>
             </tfoot>
         </table>
@@ -61,13 +58,10 @@ import {Component} from 'angular2/core';
                        </span>
                     </td>
                 </tr>
-                </tbody>
-                <tfoot>
+            </tbody>
+            <tfoot>
                 <tr>
-                    <th colspan="7" class="today">Today</th>
-                </tr>
-                <tr>
-                    <th colspan="7" class="clear" style="display: none;">Clear</th>
+                    <th colspan="7" class="today" (click)="reset()">Today</th>
                 </tr>
             </tfoot>
         </table>
@@ -83,11 +77,11 @@ import {Component} from 'angular2/core';
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="7"><span class="year old">1969</span><span class="year">1970</span><span
-                            class="year">1971</span><span class="year">1972</span><span class="year">1973</span><span
-                            class="year">1974</span><span class="year">1975</span><span class="year">1976</span><span
-                            class="year">1977</span><span class="year">1978</span><span class="year active">1979</span><span
-                            class="year old">1980</span></td>
+                    <td colspan="7">
+                        <span class="year" *ngFor="#item of yearsArr"
+                                           [ngClass]="{active:item.active}"
+                                           (click)="selectMonthOrYear('year',item.num)">{{item.num}}</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -99,6 +93,7 @@ export class AppComponent {
     date:Date;                  //  日期对象
     year:Number;                //  年份
     curYear:Number;             //  当前年份
+    yearsArr:Array<Number>;     //  年份数组
     month:Number;               //  月份
     curMonth:Number;            //  当前月份
     monthNames:Array<String>;   //  月份名称数组
@@ -173,13 +168,12 @@ export class AppComponent {
             });
             this.curState = "date";
         } else if (type == "year") {
-            this.year = parseInt(num);
+            this.year = parseInt(arg);
             this.curState = "month";
         } else {
             throw "the argument type is passed an error value which only can be 'year' or 'month'";
         }
         date = new Date(`${this.year},${this.month},${this.day}`);
-        console.log(date);
         this.dateGenerator(date);
     }
 
@@ -223,8 +217,8 @@ export class AppComponent {
         nFirstDay = new Date(`${this.year},${this.month + 1},1`).getDay();
         lastDay = new Date(`${this.year},${this.month},${this.daysArr[this.month - 1]}`).getDay();
 
-        //  当前月的第一天是星期天
-        if (firstDay == 0) {
+        //  当前月的第一天是星期天或者最后一天
+        if (firstDay == 0 || firstDay == 6) {
             for (let i = 1, days = this.daysArr[this.month - 1]; i <= days; i++) {
                 arrs.push({
                     "old": false,
@@ -238,7 +232,8 @@ export class AppComponent {
                     len += 1;
                 }
             }
-        } else if (firstDay != 0) {
+        }
+        else if (firstDay != 0) {
 
             //  当前月的第一天不是星期天
             for (let j = last - lLastDay; j <= last; j++) {
@@ -281,13 +276,22 @@ export class AppComponent {
             this.days[len - 1] = lastArr;
         }
 
-        console.log(this.days);
+        this.yearsArr = [];
+        //  处理年份相关数据
+        for (let past = this.year - 6, feature = this.year + 6; past < feature; past++) {
+            this.yearsArr.push({
+                "num": past,
+                "active": past == this.curYear
+            });
+        }
+    }
+
+
+    /**
+     * 点击今天按钮
+     */
+    reset():void {
+        this.dateGenerator(new Date());
     }
 
 }
-
-//<span class="month">Jan</span><span class="month">Feb</span><span
-//class="month">Mar</span><span class="month">Apr</span><span class="month">May</span><span
-//class="month">Jun</span><span class="month">Jul</span><span class="month">Aug</span><span
-//class="month active">Sep</span><span class="month">Oct</span><span class="month">Nov</span><span
-//class="month">Dec</span>
