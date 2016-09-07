@@ -1,7 +1,8 @@
-import { Component, Input } from "@angular/core";
-import { NgRedux, select } from "ng2-redux";
-import { Observable } from "rxjs/Observable";
-import { CounterActions } from "./actions";
+import {Component, Input} from "@angular/core";
+import {NgRedux, select} from "ng2-redux";
+import {Observable} from "rxjs/Observable";
+
+import {CounterActions} from "./actions";
 
 @Component({
     selector: 'my-app',
@@ -15,11 +16,11 @@ import { CounterActions } from "./actions";
     `
 })
 
-export class AppComponent { 
+export class AppComponent {
     @select() counter$: Observable<number>;
     num: Number;
 
-    constructor(private ngRedux: NgRedux<any>,private actions: CounterActions) {
+    constructor(private ngRedux: NgRedux<any>, private actions: CounterActions) {
     }
 
 }

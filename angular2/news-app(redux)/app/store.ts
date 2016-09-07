@@ -2,19 +2,22 @@ import {Action} from "redux";
 import {CounterActions} from "./actions";
 
 export interface AppState {
-    counter: number;
+    curPage: number;
+    data: any;
 }
 
 export const INITIAL_STATE: AppState = {
-    counter: 0
+    curPage: 1,
+    data: []
 }
 
 export function rootReducer(state: AppState, action: Action): AppState {
     switch (action.type) {
-        case CounterActions.INCREMENT:
-            return {counter: state.counter + 1};
-        case CounterActions.DECREMENT:
-            return {counter: state.counter - 1};
+        case CounterActions.RELOAD_PAGE:
+            return {
+                curPage: action.curPage,
+                data: action.data
+            };
         default:
             return state;
     }

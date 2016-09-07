@@ -5,9 +5,12 @@ exports.INITIAL_STATE = {
 };
 function rootReducer(state, action) {
     switch (action.type) {
-        case actions_1.CounterActions.INCREMENT: return { counter: state.counter + 1 };
-        case actions_1.CounterActions.DECREMENT: return { counter: state.counter - 1 };
-        default: return state;
+        case actions_1.CounterActions.INCREMENT:
+            return { counter: state.counter + 1 };
+        case actions_1.CounterActions.DECREMENT:
+            return { counter: state.counter - 1 };
+        default:
+            return state;
     }
 }
 exports.rootReducer = rootReducer;

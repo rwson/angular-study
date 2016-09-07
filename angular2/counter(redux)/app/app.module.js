@@ -23,7 +23,7 @@ var AppModule = (function () {
             imports: [platform_browser_1.BrowserModule],
             declarations: [app_component_1.AppComponent],
             bootstrap: [app_component_1.AppComponent],
-            providers: [ng2_redux_1.NgRedux, actions_1.CounterActions],
+            providers: [ng2_redux_1.NgRedux, actions_1.CounterActions]
         }), 
         __metadata('design:paramtypes', [ng2_redux_1.NgRedux])
     ], AppModule);

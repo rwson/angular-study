@@ -20,7 +20,7 @@ var AppComponent = (function () {
     __decorate([
         ng2_redux_1.select(), 
         __metadata('design:type', Observable_1.Observable)
-    ], AppComponent.prototype, "counter$", void 0);
+    ], AppComponent.prototype, "data$", void 0);
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
